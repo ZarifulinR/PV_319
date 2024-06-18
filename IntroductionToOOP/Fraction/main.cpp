@@ -5,6 +5,8 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+#define delimiter "\n------------------------------------\n"
+
 class Fraction;
 Fraction operator*(Fraction left, Fraction right);
 Fraction operator/(const Fraction& left, const Fraction& right);
@@ -49,7 +51,7 @@ public:
 		set_denominator(1);
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
@@ -70,12 +72,27 @@ public:
 		set_denominator(denominator);
 		cout << "Constructor:\t\t" << this << endl;
 	}
+	Fraction(const Fraction& other)
+	{
+		this->integer = other.integer;
+		this->numerator = other.numerator;
+		this->denominator = other.denominator;
+		cout << "CopyConstructor:\t" << this << endl;
+	}
 	~Fraction()
 	{
 		cout << "Destructor:\t\t" << this << endl;
 	}
 
 	//				Operators:
+	Fraction& operator=(const Fraction& other)
+	{
+		this->integer = other.integer;
+		this->numerator = other.numerator;
+		this->denominator = other.denominator;
+		cout << "CopyAssignment:\t\t" << this << endl;
+		return *this;
+	}
 	Fraction& operator*=(Fraction& other)
 	{
 		return *this = *this * other;
@@ -254,6 +271,10 @@ std::istream& operator>>(std::istream& is, Fraction& obj)
 
 //#define CONSTRUCTORS_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK
+//#define IOSTREAM_CHECK
+//#define TYPE_CONVERSIONS_BASICS
+//#define CONVERSIONS_FROM_OTHER_TO_CLASS
+#define CONVERSIONS_HOME_WORK
 
 void main()
 {
@@ -290,6 +311,7 @@ void main()
 	A.print();
 #endif // ARITHMETICAL_OPERATORS_CHECK
 
+#ifdef IOSTREAM_CHECK
 	//cout << (Fraction(1, 2) == Fraction(5, 10)) << endl;
 
 	Fraction A(3, 5);
@@ -298,4 +320,53 @@ void main()
 	Fraction B;
 	cout << "Введите простую дробь: ";	cin >> B;
 	cout << B << endl;
+#endif // IOSTREAM_CHECK
+
+#ifdef TYPE_CONVERSIONS_BASICS
+	//(type)value;	C-like notation
+//type(value);	Function notation
+
+	int a = 2;		//No conversions
+	double b = 3;	//Conversion from less to more
+	float c = 4;	//Conversion from less to more
+	int d = 3.f;	//Conversion from more to less without data loss
+	int e = 5.5;	//Conversion from more to less with data loss  
+#endif // TYPE_CONVERSIONS_BASICS
+
+#ifdef CONVERSIONS_FROM_OTHER_TO_CLASS
+			/*
+---------------------
+1. From other to Class;
+	-Single-Argument constructor;
+	-CopyAssignment;
+---------------------
+*/
+
+	Fraction A = (Fraction)5;	//Conversion from less to more (from 'int' to 'Fraction')
+					//Single-argument constructor
+	cout << A << endl;
+
+	cout << delimiter << endl;
+
+	Fraction B;		//Default constructor
+	cout << delimiter << endl;
+	B = Fraction(8);			//Conversion from less to more (from 'int' to 'Fraction')
+					//CopyAssignment	
+	cout << delimiter << endl;
+	cout << B << endl;
+
+	cout << delimiter << endl;
+#endif // CONVERSIONS_FROM_OTHER_TO_CLASS
+
+#ifdef CONVERSIONS_HOME_WORK
+	Fraction A = 2.75;
+	cout << A << endl;
+#endif // CONVERSIONS_HOME_WORK
+
+
+	/*
+	---------------------
+	2. From Class to other;
+	---------------------
+	*/
 }
