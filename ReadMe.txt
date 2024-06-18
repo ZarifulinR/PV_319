@@ -2,7 +2,9 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
-Пока учим теорию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+1. Учим теорию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+2. Проверочный код в секции 'CONVERSIONS_HOME_WORK' должен заработать:
+	https://github.com/okovtun/PV_319/blob/2229e78a7a935523bb527141da19287c60f68f33/IntroductionToOOP/Fraction/main.cpp#L361
 
 DONE:
 0. !!!!!!!!!!!!!!!!!!!!!!	Выучить теорию	!!!!!!!!!!!!!!!!!!!!!!
