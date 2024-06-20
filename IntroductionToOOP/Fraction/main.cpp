@@ -58,6 +58,17 @@ public:
 		set_denominator(1);
 		cout << "SingleArgumentConstructor:" << this << endl;
 	}
+	Fraction(double decimal)
+	{
+		//decimal - десятичный
+		//decimal += 1e-10;
+		integer = decimal;	//сохраняем целую часть
+		decimal -= integer;	//убираем целую часть из десятичной дроби
+		denominator = 1e+9;	//Записываем максимально-возможный знаменатель
+		numerator = decimal * denominator + .5;
+		reduce();
+		cout << "DoubleConstructor:\t" << this << endl;
+	}
 	Fraction(int numerator, int denominator)
 	{
 		this->integer = 0;
@@ -124,6 +135,7 @@ public:
 	}
 	Fraction& reduce()
 	{
+		//https://www.webmath.ru/poleznoe/formules_12_7.php
 		int more, less, rest;
 		if (numerator > denominator)more = numerator, less = denominator;
 		else less = numerator, more = denominator;
@@ -359,7 +371,7 @@ void main()
 #endif // CONVERSIONS_FROM_OTHER_TO_CLASS
 
 #ifdef CONVERSIONS_HOME_WORK
-	Fraction A = 2.75;
+	Fraction A = 3.333;	//Conversion from 'double' to 'Fraction'.
 	cout << A << endl;
 #endif // CONVERSIONS_HOME_WORK
 
