@@ -4,7 +4,10 @@ https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 TODO:
 1. Решить эту проблему: 
 	https://github.com/okovtun/PV_319/blob/a781e5195a215730369fdaaa3ce290e46e596296/IntroductionToOOP/String/main.cpp#L107
-2. 
+2. Решить эту проблему:
+	https://github.com/okovtun/PV_319/blob/9977c0bc0cc67c441698218e0841dc042a024dd1/IntroductionToOOP/String/main.cpp#L78-L91
+3. Что такое The rule of Five:
+	https://legacy.cplusplus.com/doc/tutorial/classes2/
 
 DONE:
 Реализовать класс 'String', описывающий строку.

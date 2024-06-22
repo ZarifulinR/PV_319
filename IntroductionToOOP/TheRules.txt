@@ -9,3 +9,5 @@ The rule of Three:
 	1. ~Destructor();
 	2. CopyConstructor();
 	3. CopyAssignment();
+
+C++11: The rule of Three => The Rule of Five;
