@@ -2,11 +2,14 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
+1. 
+
+DONE:
 Реализовать класс 'String', описывающий строку.
 Обеспечить следующие варианты создания объектов:
-	String str1;			//Создается пустая строка размером 80 Байт
-	String str2(8);			//Создается пустая строка, размером 8 Байт
-	String str3 = "Hello";
+	String str1;			//Создается пустая строка размером 80 Байт	DONE
+	String str2(8);			//Создается пустая строка, размером 8 Байт	DONE
+	String str3 = "Hello";	
 	String str4 = "World";
 	String str5 = str3 + str4;
 	cout << str5 << endl;
