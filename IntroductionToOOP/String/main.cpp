@@ -82,9 +82,11 @@ String operator+(const String& left, const String& right)
 	String buffer(left.get_size() + right.get_size() - 1);
 	buffer.print();
 	for (int i = 0; i < left.get_size(); i++)
-		buffer.get_str()[i] = left.get_str()[i];
+		buffer[i] = left[i];
+		//buffer.get_str()[i] = left.get_str()[i];
 	for (int i = 0; i < right.get_size(); i++)
-		buffer.get_str()[i + left.get_size() - 1] = right.get_str()[i];
+		buffer[i + left.get_size() - 1] = right[i];
+		//buffer.get_str()[i + left.get_size() - 1] = right.get_str()[i];
 	return buffer;
 }
 
