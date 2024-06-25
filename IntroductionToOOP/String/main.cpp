@@ -1,6 +1,9 @@
 ﻿//String
 #include<iostream>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
 #define delimiter "\n------------------------------------\n"
 
@@ -47,6 +50,17 @@ public:
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << this << endl;
 	}
+	String(String&& other)noexcept//r-value reference
+	{
+		//Shallow copy:
+		this->size = other.size;
+		this->str = other.str;	//Shallow copy
+
+		//Reset other:
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveConstructor:" << this << endl;
+	}
 	~String()
 	{
 		delete[] str;
@@ -57,12 +71,24 @@ public:
 	String& operator=(const String& other)
 	{
 		//Deep copy (Побитовое копирование):
+		if (this == &other)return *this;
+		delete[] this->str;
 		this->size = other.size;
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyAssignemt:\t" << this << endl;
 		return *this;
 	}
+
+	char operator[](int i)const 
+	{
+		return str[i];
+	}
+	char& operator[](int i) 
+	{
+		return str[i];
+	}
+
 
 	//					Methods:
 	void print()const
@@ -77,10 +103,10 @@ public:
 
 String operator+(const String& left, const String& right)
 {
-	cout << delimiter << endl;
+	//cout << delimiter << endl;
 	cout << "Operator + " << endl;
 	String buffer(left.get_size() + right.get_size() - 1);
-	buffer.print();
+	//buffer.print();
 	for (int i = 0; i < left.get_size(); i++)
 		buffer[i] = left[i];
 		//buffer.get_str()[i] = left.get_str()[i];
@@ -95,9 +121,15 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 	return os << obj.get_str();
 }
 
+//#define CONSTRUCTORS_CHECK
+#define OPERATOR_PLUS_CHECK
+//#define TEMPORARY_UNNAMED_OBJECTS
+
 void main()
 {
 	setlocale(LC_ALL, "");
+
+#ifdef CONSTRUCTORS_CHECK
 	String str1;		//Default constructor
 	str1.print();
 
@@ -120,4 +152,41 @@ void main()
 	str5 = str3 + str4;		//Copy assignment
 	str5.print();
 	cout << str5 << endl;
+#endif // CONSTRUCTORS_CHECK
+
+	//Shallow copy (Поверхностное копирование)
+	
+#ifdef OPERATOR_PLUS_CHECK
+	String str1 = "Hello";
+	String str2 = "World";
+
+	cout << delimiter << endl;
+	String str3 = str1 + str2;
+	cout << str3 << endl;
+	cout << delimiter << endl;
+
+	cout << str1 << endl;
+	cout << str2 << endl;
+#endif // OPERATOR_PLUS_CHECK
+
+
+#ifdef TEMPORARY_UNNAMED_OBJECTS
+	//cout << delimiter << endl;
+	5;	//Временный безымянный объект
+	2 + 3;	//Оператор + создает временный безымянный объект
+	String("Hello");	//Явно вызываем конструктор и создаем временный безымянный объект
+
+	////////////////////////////////////
+
+	cout << delimiter << endl;
+
+	////////////////////////////////////
+
+	{
+		String str("World");	//Создается локальный объект 'str', который существует в пределах {} (в безымянном пространстве имен)
+	}
+	cout << delimiter << endl;
+#endif // TEMPORARY_UNNAMED_OBJECTS
+
+
 }

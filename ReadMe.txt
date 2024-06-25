@@ -1,7 +1,14 @@
 ﻿https://github.com/okovtun/PV_319.git
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
+TOREAD:
+https://stackoverflow.com/questions/72927820/c20-visual-studio-2022-complier-optimization-setting-to-implement-move-constru
+https://learn.microsoft.com/en-us/cpp/build/reference/zc-nrvo?view=msvc-170
+
 TODO:
+Реализовать и проветрить MoveAssignment;
+
+DONE:
 1. Решить эту проблему: 
 	https://github.com/okovtun/PV_319/blob/a781e5195a215730369fdaaa3ce290e46e596296/IntroductionToOOP/String/main.cpp#L107
 2. Решить эту проблему:

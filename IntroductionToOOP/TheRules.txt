@@ -11,3 +11,6 @@ The rule of Three:
 	3. CopyAssignment();
 
 C++11: The rule of Three => The Rule of Five;
+
+	1. MoveConstructor();
+	2. MoveAssignment();
