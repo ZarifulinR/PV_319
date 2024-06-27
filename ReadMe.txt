@@ -4,6 +4,9 @@ https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 TOREAD:
 https://stackoverflow.com/questions/72927820/c20-visual-studio-2022-complier-optimization-setting-to-implement-move-constru
 https://learn.microsoft.com/en-us/cpp/build/reference/zc-nrvo?view=msvc-170
+--------------------------------------------------------------------------------
+https://en.wikipedia.org/wiki/Copy_elision
+https://en.cppreference.com/w/cpp/language/copy_elision
 
 TODO:
 Реализовать и проветрить MoveAssignment;
