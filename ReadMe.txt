@@ -9,6 +9,9 @@ https://en.wikipedia.org/wiki/Copy_elision
 https://en.cppreference.com/w/cpp/language/copy_elision
 
 TODO:
+"Погонять" делегирование конструкторов в отладчике.
+
+DONE:
 Реализовать и проветрить MoveAssignment;
 
 DONE:
