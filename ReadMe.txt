@@ -1,6 +1,9 @@
 ﻿https://github.com/okovtun/PV_319.git
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
+AutoSurround disable:
+https://stackoverflow.com/questions/73964338/how-to-disable-automatic-brace-surrounding-on-selection-in-visual-studio
+
 TOREAD:
 https://stackoverflow.com/questions/72927820/c20-visual-studio-2022-complier-optimization-setting-to-implement-move-constru
 https://learn.microsoft.com/en-us/cpp/build/reference/zc-nrvo?view=msvc-170
