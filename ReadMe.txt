@@ -1,6 +1,10 @@
 ﻿https://github.com/okovtun/PV_319.git
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
+TODO:
+1. На ветке 'String separation' вынести классы 'Point' и 'Fraction' в отдельные файлы;
+2. Выучить теорию по наследованию;
+
 TOREAD:
 https://stackoverflow.com/questions/72927820/c20-visual-studio-2022-complier-optimization-setting-to-implement-move-constru
 https://learn.microsoft.com/en-us/cpp/build/reference/zc-nrvo?view=msvc-170
