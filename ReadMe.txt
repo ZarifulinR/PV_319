@@ -2,6 +2,12 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
+1. В проект 'Academy' добавить класс 'Graduate', который описывает дипломника.
+	Дипломник - это студент, который пишет дипломный проект.
+2. Используя VisualStudio установить "Конструктор классов";
+3. Построить диагрмму классов для проекта 'Academy';
+
+DONE:
 1. На ветке 'String separation' вынести классы 'Point' и 'Fraction' в отдельные файлы;
 2. Выучить теорию по наследованию;
 
