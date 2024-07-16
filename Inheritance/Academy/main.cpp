@@ -74,6 +74,7 @@ public:
 						//Один вызов width() влияет только на одно выводимое значение
 		ofs << std::string(strchr(typeid(*this).name(), ' ') + 1) + ":";	//Оператор typeid(type | value) определяет тип значения на этапе выполнения программы.
 												//Метод name() возвращает C-string содержащую имя типа.
+		//https://legacy.cplusplus.com/reference/cstring/strchr/
 		ofs.width(LAST_NAME_WIDTH);
 		ofs << last_name;
 		ofs.width(FIRST_NAME_WIDTH);
@@ -288,6 +289,56 @@ void Save(Human* group[], const int n, const std::string& filename)
 	system(cmd.c_str());	//Функция system(const char*) выполняет любую досутпную коданду операционной системы
 							//Метод c_str() возвращает C-string (NULL Terminated Line), обвернутый в объект класса std::string.
 }
+Human** Load(const std::string& filename, int& n)
+{
+	Human** group = nullptr;
+	std::ifstream fin(filename);
+	if (fin.is_open())
+	{
+		//1) Выичсляем размер файла (количество записей в файле):
+		n = 0;
+		while (!fin.eof())
+		{
+			std::string buffer;
+			//fin.getline();	//НЕ перегружен для объектов класса std::string
+			std::getline(fin, buffer);	//читает все до конца строки
+			//move DST, SRC;
+			//strcat(DST, SRC);
+			if (
+				buffer.find("Human:") == std::string::npos &&
+				buffer.find("Student:") == std::string::npos &&
+				buffer.find("Teacher:") == std::string::npos && 
+				buffer.find("Graduate:") == std::string::npos
+				)continue;
+			n++;
+		}
+		cout << "Количество записей в файле: " << n << endl;
+
+		//2) Выделяем память для группы:
+		group = new Human*[n] {};
+
+		//3) Возвращаемся в начало файла, для того чтобы прочитать содержимое этого файла:
+		cout << "Позиция курсора на чтение: " << fin.tellg() << endl;
+		fin.clear();
+		fin.seekg(0);
+		cout << "Позиция курсора на чтение: " << fin.tellg() << endl;
+
+		//4) Читаем файл:
+		for (int i = 0; !fin.eof(); i++)
+		{
+			std::string type;
+			fin >> type;
+
+		}
+
+		fin.close();
+	}
+	else
+	{
+		std::cerr << "Error: File not found" << endl;
+	}
+	return group;
+}
 void Clear(Human* group[], const int n)
 {
 	for (int i = 0; i < n; i++)
@@ -297,6 +348,8 @@ void Clear(Human* group[], const int n)
 }
 
 //#define INHERITANCE
+//#define SAVE_CHECK
+#define LOAD_CHECK
 
 void main()
 {
@@ -322,6 +375,7 @@ void main()
 	cout << delimiter << endl;
 #endif // INHERITANCE
 
+#ifdef SAVE_CHECK
 	Human* group[] =
 	{
 		new Student("Pinkman", "Jessie", 20, "Chenistry", "WW_220", 95, 90),
@@ -333,4 +387,9 @@ void main()
 	Print(group, sizeof(group) / sizeof(group[0]));
 	Save(group, sizeof(group) / sizeof(group[0]), "group.txt");
 	Clear(group, sizeof(group) / sizeof(group[0]));
+#endif // SAVE_CHECK
+
+	int n = 0;
+	Human** group = Load("group.txt", n);
+
 }

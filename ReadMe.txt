@@ -3,7 +3,9 @@ https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
 1. Сохранить группу в файл;			DONE
-2. Загрузить группу из файла;
+2. Загрузить группу из файла:
+	-пергрузить std::istream operator>>(...);
+	-применить его в функции Load();
 3. Вынести классы в отдельные файлы;
 
 DONE:
