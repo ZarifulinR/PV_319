@@ -1,5 +1,7 @@
 #include<iostream>
-#include<string>
+#include<fstream>
+#include<string>	//Объявлен класс std::string
+#include<string.h>	//Объявлены функции для работы с NULL Terminated Lines
 using std::cin;
 using std::cout;
 using std::endl;
@@ -11,6 +13,10 @@ using std::endl;
 
 class Human
 {
+	static const int TYPE_WIDTH = 12;
+	static const int LAST_NAME_WIDTH = 15;
+	static const int FIRST_NAME_WIDTH = 15;
+	static const int AGE_WIDTH = 5;
 	std::string last_name;
 	std::string first_name;
 	int age;
@@ -56,7 +62,25 @@ public:
 	//				Methods:
 	virtual std::ostream& print(std::ostream& os)const
 	{
+		//os << strchr(typeid(*this).name(), ' ') + 1 << ":\t";	//Оператор typeid(type | value) определяет тип значения на этапе выполнения программы.
+												//Метод name() возвращает C-string содержащую имя типа.
 		return os << last_name << " " << first_name << " " << age;
+	}
+	virtual std::ofstream& print(std::ofstream& ofs)const
+	{
+		ofs.width(TYPE_WIDTH);	//Метод width() задает ширину вывода.
+						//При первом вызове метод width() включает выравнивание по правому краю.
+		ofs << std::left;	//Возвращаем выравнивание по левому краю.
+						//Один вызов width() влияет только на одно выводимое значение
+		ofs << std::string(strchr(typeid(*this).name(), ' ') + 1) + ":";	//Оператор typeid(type | value) определяет тип значения на этапе выполнения программы.
+												//Метод name() возвращает C-string содержащую имя типа.
+		ofs.width(LAST_NAME_WIDTH);
+		ofs << last_name;
+		ofs.width(FIRST_NAME_WIDTH);
+		ofs << first_name;
+		ofs.width(AGE_WIDTH);
+		ofs << age;
+		return ofs;
 	}
 };
 
@@ -64,12 +88,20 @@ std::ostream& operator<<(std::ostream& os, const Human& obj)
 {
 	return obj.print(os);
 }
+std::ofstream& operator<<(std::ofstream& ofs, const Human& obj)
+{
+	return obj.print(ofs);
+}
 
 #define STUDENT_TAKE_PARAMETERS const std::string& speciality, const std::string& group, double rating, double attendance
 #define STUDENT_GIVE_PARAMETERS speciality, group, rating, attendance
 
 class Student : public Human
 {
+	const static int SPECIALITY_WIDTH = 25;
+	const static int GROUP_WIDTH = 8;
+	const static int RATING_WIDTH = 8;
+	const static int ATTENDANCE_WIDTH = 8;
 	std::string speciality;
 	std::string group;
 	double rating;
@@ -125,14 +157,30 @@ public:
 	//				Methods:
 	std::ostream& print(std::ostream& os)const override
 	{
-		return Human::print(os)<< " " << speciality << " " << group << " " << rating << " " << attendance;
+		return Human::print(os) << " " << speciality << " " << group << " " << rating << " " << attendance;
 	}
+	std::ofstream& print(std::ofstream& ofs)const override
+	{
+		Human::print(ofs);
+		ofs.width(SPECIALITY_WIDTH);
+		ofs << speciality;
+		ofs.width(GROUP_WIDTH);
+		ofs << group;
+		ofs.width(RATING_WIDTH);
+		ofs << rating;
+		ofs.width(ATTENDANCE_WIDTH);
+		ofs << attendance;
+		return ofs;
+	}
+
 };
 
 #define TEACHER_TAKE_PARAMETERS const std::string& speciality, int experience
 #define TEACHER_GIVE_PARAMETERS speciality, experience
 class Teacher :public Human
 {
+	static const int SPECIALITY_WIDTH = 25;
+	static const int EXPERIENCE_WIDTH = 5;
 	std::string speciality;
 	int experience;
 public:
@@ -170,6 +218,16 @@ public:
 	{
 		return Human::print(os) << " " << speciality << " " << experience << " years";
 	}
+	std::ofstream& print(std::ofstream& ofs)const override
+	{
+		Human::print(ofs);
+		ofs.width(SPECIALITY_WIDTH);
+		ofs << speciality;
+		ofs.width(EXPERIENCE_WIDTH);
+		ofs << experience;
+		return ofs;
+	}
+
 };
 #define GRADUATE_TAKE_PARAMETERS const std::string& subject
 #define GRADUATE_GIVE_PARAMETERS subject
@@ -218,6 +276,18 @@ void Print(Human* group[], const int n)
 		cout << delimiter << endl;
 	}
 }
+void Save(Human* group[], const int n, const std::string& filename)
+{
+	std::ofstream fout(filename);
+	for (int i = 0; i < n; i++)
+	{
+		fout << *group[i] << endl;
+	}
+	fout.close();
+	std::string cmd = "notepad " + filename;
+	system(cmd.c_str());	//Функция system(const char*) выполняет любую досутпную коданду операционной системы
+							//Метод c_str() возвращает C-string (NULL Terminated Line), обвернутый в объект класса std::string.
+}
 void Clear(Human* group[], const int n)
 {
 	for (int i = 0; i < n; i++)
@@ -261,5 +331,6 @@ void main()
 		new Teacher("Diaz", "Ricardo", 50, "Weapons distribution", 20)
 	};
 	Print(group, sizeof(group) / sizeof(group[0]));
+	Save(group, sizeof(group) / sizeof(group[0]), "group.txt");
 	Clear(group, sizeof(group) / sizeof(group[0]));
 }

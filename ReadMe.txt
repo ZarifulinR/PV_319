@@ -2,7 +2,7 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
-1. Сохранить группу в файл;
+1. Сохранить группу в файл;			DONE
 2. Загрузить группу из файла;
 3. Вынести классы в отдельные файлы;
 
