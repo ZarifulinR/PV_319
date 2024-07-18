@@ -83,6 +83,11 @@ public:
 		ofs << age;
 		return ofs;
 	}
+	virtual std::ifstream& read(std::ifstream& ifs)
+	{
+		ifs >> last_name >> first_name >> age;
+		return ifs;
+	}
 };
 
 std::ostream& operator<<(std::ostream& os, const Human& obj)
@@ -92,6 +97,10 @@ std::ostream& operator<<(std::ostream& os, const Human& obj)
 std::ofstream& operator<<(std::ofstream& ofs, const Human& obj)
 {
 	return obj.print(ofs);
+}
+std::ifstream& operator>>(std::ifstream& ifs, Human& obj)
+{
+	return obj.read(ifs);
 }
 
 #define STUDENT_TAKE_PARAMETERS const std::string& speciality, const std::string& group, double rating, double attendance
@@ -173,7 +182,12 @@ public:
 		ofs << attendance;
 		return ofs;
 	}
-
+	std::ifstream& read(std::ifstream& ifs)override
+	{
+		Human::read(ifs);
+		ifs >> speciality >> group >> rating >> attendance;
+		return ifs;
+	}
 };
 
 #define TEACHER_TAKE_PARAMETERS const std::string& speciality, int experience
@@ -228,7 +242,17 @@ public:
 		ofs << experience;
 		return ofs;
 	}
-
+	std::ifstream& read(std::ifstream& ifs)override
+	{
+		Human::read(ifs);
+		char sz_speciality[SPECIALITY_WIDTH + 1]{};	//sz_ - String Zero (Строка, заканчивающаяся нулем)
+		ifs.read(sz_speciality, SPECIALITY_WIDTH);
+		for (int i = SPECIALITY_WIDTH - 2; sz_speciality[i] == ' '; i--)sz_speciality[i] = 0;
+		while (sz_speciality[0] == ' ')for (int i = 0; sz_speciality[i]; i++)sz_speciality[i] = sz_speciality[i + 1];
+		speciality = sz_speciality;
+		ifs >> experience;
+		return ifs;
+	}
 };
 #define GRADUATE_TAKE_PARAMETERS const std::string& subject
 #define GRADUATE_GIVE_PARAMETERS subject
@@ -265,6 +289,18 @@ public:
 	{
 		return Student::print(os) << " " << subject;
 	}
+	std::ofstream& print(std::ofstream& ofs)const override
+	{
+		Student::print(ofs) << subject;
+		return ofs;
+	}
+
+	std::ifstream& read(std::ifstream& ifs) override
+	{
+		Student::read(ifs);
+		std::getline(ifs, subject);
+		return ifs;
+	}
 };
 
 void Print(Human* group[], const int n)
@@ -273,9 +309,13 @@ void Print(Human* group[], const int n)
 	for (int i = 0; i < n; i++)
 	{
 		//group[i]->print();
-		cout << *group[i] << endl;
-		cout << delimiter << endl;
+		if (group[i])
+		{
+			cout << *group[i] << endl;
+			cout << delimiter << endl;
+		}
 	}
+	cout << "Колиество человек в группе: " << n << endl;
 }
 void Save(Human* group[], const int n, const std::string& filename)
 {
@@ -288,6 +328,23 @@ void Save(Human* group[], const int n, const std::string& filename)
 	std::string cmd = "notepad " + filename;
 	system(cmd.c_str());	//Функция system(const char*) выполняет любую досутпную коданду операционной системы
 							//Метод c_str() возвращает C-string (NULL Terminated Line), обвернутый в объект класса std::string.
+}
+Human* HumanFactory(const std::string& type)
+{
+	Human* human = nullptr;
+	if (type == "Human:")human = new Human("", "", 0);
+	if (type == "Teacher:")human = new Teacher("", "", 0, "", 0);
+	if (type == "Student:")human = new Student("", "", 0, "", "", 0, 0);
+	if (type == "Graduate:")human = new Graduate("", "", 0, "", "", 0, 0, "");
+	return human;
+}
+bool NotAppropriateType(const std::string& buffer)
+{
+	//Несоответствуюший тип:
+	return buffer.find("Human:") == std::string::npos &&
+		buffer.find("Student:") == std::string::npos &&
+		buffer.find("Teacher:") == std::string::npos &&
+		buffer.find("Graduate:") == std::string::npos;
 }
 Human** Load(const std::string& filename, int& n)
 {
@@ -304,12 +361,7 @@ Human** Load(const std::string& filename, int& n)
 			std::getline(fin, buffer);	//читает все до конца строки
 			//move DST, SRC;
 			//strcat(DST, SRC);
-			if (
-				buffer.find("Human:") == std::string::npos &&
-				buffer.find("Student:") == std::string::npos &&
-				buffer.find("Teacher:") == std::string::npos && 
-				buffer.find("Graduate:") == std::string::npos
-				)continue;
+			if (NotAppropriateType(buffer))continue;
 			n++;
 		}
 		cout << "Количество записей в файле: " << n << endl;
@@ -324,11 +376,14 @@ Human** Load(const std::string& filename, int& n)
 		cout << "Позиция курсора на чтение: " << fin.tellg() << endl;
 
 		//4) Читаем файл:
-		for (int i = 0; !fin.eof(); i++)
+		for (int i = 0; i < n; i++)
 		{
 			std::string type;
 			fin >> type;
-
+			if (NotAppropriateType(type))continue;
+			group[i] = HumanFactory(type);
+			if (group[i])
+				fin >> *group[i];
 		}
 
 		fin.close();
@@ -389,7 +444,11 @@ void main()
 	Clear(group, sizeof(group) / sizeof(group[0]));
 #endif // SAVE_CHECK
 
+#ifdef LOAD_CHECK
 	int n = 0;
 	Human** group = Load("group.txt", n);
+	Print(group, n);
+	Clear(group, n);
+#endif // LOAD_CHECK
 
 }
