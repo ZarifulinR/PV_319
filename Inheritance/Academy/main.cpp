@@ -1,7 +1,7 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<fstream>
-#include<string>	//Объявлен класс std::string
-#include<string.h>	//Объявлены функции для работы с NULL Terminated Lines
+#include<string>	//РћР±СЉСЏРІР»РµРЅ РєР»Р°СЃСЃ std::string
+#include<string.h>	//РћР±СЉСЏРІР»РµРЅС‹ С„СѓРЅРєС†РёРё РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ NULL Terminated Lines
 using std::cin;
 using std::cout;
 using std::endl;
@@ -62,18 +62,18 @@ public:
 	//				Methods:
 	virtual std::ostream& print(std::ostream& os)const
 	{
-		//os << strchr(typeid(*this).name(), ' ') + 1 << ":\t";	//Оператор typeid(type | value) определяет тип значения на этапе выполнения программы.
-												//Метод name() возвращает C-string содержащую имя типа.
+		//os << strchr(typeid(*this).name(), ' ') + 1 << ":\t";	//РћРїРµСЂР°С‚РѕСЂ typeid(type | value) РѕРїСЂРµРґРµР»СЏРµС‚ С‚РёРї Р·РЅР°С‡РµРЅРёСЏ РЅР° СЌС‚Р°РїРµ РІС‹РїРѕР»РЅРµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹.
+												//РњРµС‚РѕРґ name() РІРѕР·РІСЂР°С‰Р°РµС‚ C-string СЃРѕРґРµСЂР¶Р°С‰СѓСЋ РёРјСЏ С‚РёРїР°.
 		return os << last_name << " " << first_name << " " << age;
 	}
 	virtual std::ofstream& print(std::ofstream& ofs)const
 	{
-		ofs.width(TYPE_WIDTH);	//Метод width() задает ширину вывода.
-						//При первом вызове метод width() включает выравнивание по правому краю.
-		ofs << std::left;	//Возвращаем выравнивание по левому краю.
-						//Один вызов width() влияет только на одно выводимое значение
-		ofs << std::string(strchr(typeid(*this).name(), ' ') + 1) + ":";	//Оператор typeid(type | value) определяет тип значения на этапе выполнения программы.
-												//Метод name() возвращает C-string содержащую имя типа.
+		ofs.width(TYPE_WIDTH);	//РњРµС‚РѕРґ width() Р·Р°РґР°РµС‚ С€РёСЂРёРЅСѓ РІС‹РІРѕРґР°.
+						//РџСЂРё РїРµСЂРІРѕРј РІС‹Р·РѕРІРµ РјРµС‚РѕРґ width() РІРєР»СЋС‡Р°РµС‚ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РїСЂР°РІРѕРјСѓ РєСЂР°СЋ.
+		ofs << std::left;	//Р’РѕР·РІСЂР°С‰Р°РµРј РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ Р»РµРІРѕРјСѓ РєСЂР°СЋ.
+						//РћРґРёРЅ РІС‹Р·РѕРІ width() РІР»РёСЏРµС‚ С‚РѕР»СЊРєРѕ РЅР° РѕРґРЅРѕ РІС‹РІРѕРґРёРјРѕРµ Р·РЅР°С‡РµРЅРёРµ
+		ofs << std::string(strchr(typeid(*this).name(), ' ') + 1) + ":";	//РћРїРµСЂР°С‚РѕСЂ typeid(type | value) РѕРїСЂРµРґРµР»СЏРµС‚ С‚РёРї Р·РЅР°С‡РµРЅРёСЏ РЅР° СЌС‚Р°РїРµ РІС‹РїРѕР»РЅРµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹.
+												//РњРµС‚РѕРґ name() РІРѕР·РІСЂР°С‰Р°РµС‚ C-string СЃРѕРґРµСЂР¶Р°С‰СѓСЋ РёРјСЏ С‚РёРїР°.
 		//https://legacy.cplusplus.com/reference/cstring/strchr/
 		ofs.width(LAST_NAME_WIDTH);
 		ofs << last_name;
@@ -286,8 +286,8 @@ void Save(Human* group[], const int n, const std::string& filename)
 	}
 	fout.close();
 	std::string cmd = "notepad " + filename;
-	system(cmd.c_str());	//Функция system(const char*) выполняет любую досутпную коданду операционной системы
-							//Метод c_str() возвращает C-string (NULL Terminated Line), обвернутый в объект класса std::string.
+	system(cmd.c_str());	//Р¤СѓРЅРєС†РёСЏ system(const char*) РІС‹РїРѕР»РЅСЏРµС‚ Р»СЋР±СѓСЋ РґРѕСЃСѓС‚РїРЅСѓСЋ РєРѕРґР°РЅРґСѓ РѕРїРµСЂР°С†РёРѕРЅРЅРѕР№ СЃРёСЃС‚РµРјС‹
+							//РњРµС‚РѕРґ c_str() РІРѕР·РІСЂР°С‰Р°РµС‚ C-string (NULL Terminated Line), РѕР±РІРµСЂРЅСѓС‚С‹Р№ РІ РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° std::string.
 }
 Human** Load(const std::string& filename, int& n)
 {
@@ -295,13 +295,13 @@ Human** Load(const std::string& filename, int& n)
 	std::ifstream fin(filename);
 	if (fin.is_open())
 	{
-		//1) Выичсляем размер файла (количество записей в файле):
+		//1) Р’С‹РёС‡СЃР»СЏРµРј СЂР°Р·РјРµСЂ С„Р°Р№Р»Р° (РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ С„Р°Р№Р»Рµ):
 		n = 0;
 		while (!fin.eof())
 		{
 			std::string buffer;
-			//fin.getline();	//НЕ перегружен для объектов класса std::string
-			std::getline(fin, buffer);	//читает все до конца строки
+			//fin.getline();	//РќР• РїРµСЂРµРіСЂСѓР¶РµРЅ РґР»СЏ РѕР±СЉРµРєС‚РѕРІ РєР»Р°СЃСЃР° std::string
+			std::getline(fin, buffer);	//С‡РёС‚Р°РµС‚ РІСЃРµ РґРѕ РєРѕРЅС†Р° СЃС‚СЂРѕРєРё
 			//move DST, SRC;
 			//strcat(DST, SRC);
 			if (
@@ -312,18 +312,18 @@ Human** Load(const std::string& filename, int& n)
 				)continue;
 			n++;
 		}
-		cout << "Количество записей в файле: " << n << endl;
+		cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ С„Р°Р№Р»Рµ: " << n << endl;
 
-		//2) Выделяем память для группы:
+		//2) Р’С‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РґР»СЏ РіСЂСѓРїРїС‹:
 		group = new Human*[n] {};
 
-		//3) Возвращаемся в начало файла, для того чтобы прочитать содержимое этого файла:
-		cout << "Позиция курсора на чтение: " << fin.tellg() << endl;
+		//3) Р’РѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РЅР°С‡Р°Р»Рѕ С„Р°Р№Р»Р°, РґР»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ РїСЂРѕС‡РёС‚Р°С‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ С„Р°Р№Р»Р°:
+		cout << "РџРѕР·РёС†РёСЏ РєСѓСЂСЃРѕСЂР° РЅР° С‡С‚РµРЅРёРµ: " << fin.tellg() << endl;
 		fin.clear();
 		fin.seekg(0);
-		cout << "Позиция курсора на чтение: " << fin.tellg() << endl;
+		cout << "РџРѕР·РёС†РёСЏ РєСѓСЂСЃРѕСЂР° РЅР° С‡С‚РµРЅРёРµ: " << fin.tellg() << endl;
 
-		//4) Читаем файл:
+		//4) Р§РёС‚Р°РµРј С„Р°Р№Р»:
 		for (int i = 0; !fin.eof(); i++)
 		{
 			std::string type;
