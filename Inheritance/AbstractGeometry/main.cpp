@@ -34,7 +34,7 @@ enum (Enumeration - Перечисление) - это набор именова
 		}
 	};
 
-	class Square :public Shape
+	/*class Square :public Shape
 	{
 		double side;
 	public:
@@ -79,7 +79,7 @@ enum (Enumeration - Перечисление) - это набор именова
 			cout << "Длина стороны: " << get_side() << endl;
 			Shape::info();
 		}
-	};
+	};*/
 
 	class Rectangle :public Shape
 	{
@@ -153,6 +153,12 @@ enum (Enumeration - Перечисление) - это набор именова
 			cout << "Высота прямоугольника: " << get_height() << endl;
 			Shape::info();
 		}
+	};
+	class Square :public Rectangle
+	{
+	public:
+		Square(double side, Color color) :Rectangle(side, side, color) {}
+		~Square() {}
 	};
 }
 
