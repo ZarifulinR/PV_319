@@ -2,7 +2,12 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
+1. Посмотреть документацию по WinGDI (на уроке);
+2. Решить проблему с выходом фигур за пределы экрана;
+
+DONE:
 Реализовать круг и треугольник
+	https://en.wikipedia.org/wiki/Disk_(mathematics)
 
 DONE:
 Реализовать иерархию геометрических фигур: квадрат, прямоугольник, круг, треугольник.......
