@@ -282,6 +282,7 @@ enum (Enumeration - Перечисление) - это набор именова
 			SelectObject(hdc, hBrush);
 
 			::Ellipse(hdc, start_x, start_y, start_x + get_diameter(), start_y + get_diameter());
+			//https://learn.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-ellipse
 
 			// Очищаем ресурсы: 
 			DeleteObject(hBrush);
@@ -294,6 +295,18 @@ enum (Enumeration - Перечисление) - это набор именова
 			cout << typeid(*this).name() << endl;
 			cout << "Disc radius:  " << get_radius() << endl;
 			cout << "Disc diameter:" << get_diameter() << endl;
+			Shape::info();
+		}
+	};
+	class Triangle :public Shape
+	{
+	public:
+		Triangle(SHAPE_TAKE_PARAMETERS) :Shape(SHAPE_GIVE_PARAMETERS){}
+		~Triangle() {}
+		virtual double get_height()const = 0;
+		void info()const override
+		{
+			cout << "Высота треугольника: " << get_height() << endl;
 			Shape::info();
 		}
 	};
@@ -315,6 +328,8 @@ void main()
 
 	Geometry::Circle disk(10000, 500, 100, 5, Geometry::Color::YELLOW);
 	disk.info();
+
+	Geometry::Triangle triangle(300, 300, 50, Geometry::Color::GREEN);
 
 	cout << "Количество фигур: " << disk.get_count() << endl;
 }
