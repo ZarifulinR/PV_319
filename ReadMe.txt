@@ -2,6 +2,9 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
+Выучить теорию по динамическим стуктурам данных.
+
+DONE:
 1. !!! Слелать COMMIT !!!;
 2. Создать ветку 'SingleDrawInGeometry';
 3. В этой ветке, код, повторяющийся в разных функциях draw() вынести в базовый класс;	HARDCORE!!!!
