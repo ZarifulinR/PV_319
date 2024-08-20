@@ -42,6 +42,21 @@ public:
 		size = 0;
 		cout << "LConstructor:\t" << this << endl;
 	}
+	ForwardList(const std::initializer_list<int>& il) :ForwardList()
+	{
+		//initializer_list - это контейнер.
+		//Контейнер - это объект, который организует хранение других объектов в памяти.
+		//У любого контейнера в обязательном порядке есть как минимум два метода:
+		//begin() - возвразает итератор на начало контейнера.
+		//end()   - возвращает итератор на конец контейнера.
+		cout << typeid(il.begin()).name() << endl;
+		for (int const* it = il.begin(); it != il.end(); it++)
+		{
+			push_back(*it);
+		}
+		//initializer_list  всякий раз неявно создается, когда мы перечисляем значения
+		//					в {} через запятую.
+	}
 	ForwardList(const ForwardList& other):ForwardList()
 	{
 		/*for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
@@ -62,7 +77,8 @@ public:
 		if (this == &other)return *this;
 		while (Head)pop_front();
 		for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
-			push_back(Temp->Data);
+			push_front(Temp->Data);
+		reverse();
 		cout << "LCopyAssignment:" << this << endl;
 		return *this;
 	}
@@ -165,6 +181,19 @@ public:
 	}
 
 	//				Methods:
+	void reverse()
+	{
+		ForwardList buffer;
+		while (Head)
+		{
+			buffer.push_front(Head->Data);
+			pop_front();
+		}
+		this->Head = buffer.Head;
+		this->size = buffer.size;
+		buffer.Head = nullptr;
+	}
+
 	void print()const
 	{
 		cout << "Head:\t" << Head << endl;
@@ -183,8 +212,27 @@ public:
 	}
 };
 
+void Print(int arr[])
+{
+	cout << typeid(arr).name() << endl;
+	cout << sizeof(arr) << endl;
+	for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
+	{
+		cout << arr[i] << tab;
+	}
+	cout << endl;
+	/*for (int i : arr)
+	{
+		cout << i << tab;
+	}
+	cout << endl;*/
+}
+
 //#define BASE_CHECK
 //#define COUNT_CHECK
+//#define PERFORMANCE_CHECK
+//#define RANGE_BASED_FOR_ARRAY
+#define RANGE_BASED_FOR_LIST
 
 void main()
 {
@@ -235,19 +283,54 @@ void main()
 	list2.print();
 #endif // COUNT_CHECK
 
+#ifdef PERFORMANCE_CHECK
 	int n;
 	cout << "Введите количество элементов: "; cin >> n;
 	ForwardList list;
 	for (int i = 0; i < n; i++)
 	{
-		list.push_back(rand() % 100);
-		//list.push_front(rand() % 100);
+		//list.push_back(rand() % 100);
+		list.push_front(rand() % 100);
 	}
 	cout << "List filled" << endl;
-	list.print();
+	//list.print();
 
+	cout << "Making copy" << endl;
 	ForwardList list2 = list;	//CopyConstructor
 	//ForwardList list2;
 	//list2 = list;
-	list2.print();
+	//list2.print();
+	cout << "Copy DONE" << endl;
+#endif // PERFORMANCE_CHECK
+
+#ifdef RANGE_BASED_FOR_ARRAY
+	int arr[] = { 3, 5, 8, 13, 21, 34, 55, 89, 144 };
+	for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
+	{
+		cout << arr[i] << tab;
+	}
+	cout << endl;
+
+	//https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Range%2Dbased%20for%20loop,-The%20for%2Dloop
+	//Range-based for:
+	//Range (дапазон) в данном контексте понимается как контейнер.
+	for (int i : arr)
+	{
+		cout << i << tab;
+	}
+	cout << endl;
+
+	Print(arr);
+#endif // RANGE_BASED_FOR_ARRAY
+
+#ifdef RANGE_BASED_FOR_LIST
+	ForwardList list = { 3, 5, 8, 13, 21 };
+	//list.print();
+	for (int i : list)
+	{
+		cout << i << tab;
+	}
+	cout << endl;
+#endif // RANGE_BASED_FOR_LIST
+
 }
