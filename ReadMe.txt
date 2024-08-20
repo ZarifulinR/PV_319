@@ -2,6 +2,10 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
+Проверочный код в секции 'RANGE_BASED_FOR_LIST' должен заработать:
+	https://github.com/okovtun/PV_319/blob/00f51e173906e5400c6e2d1eebd3e649d981c320/DataContainers/ForwardList/main.cpp#L326C1-L334C31
+
+DONE:
 0.			!!!		Отдохнуть		!!!
 1. Реализовать MoveSemantic;
 
