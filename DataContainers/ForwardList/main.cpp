@@ -27,15 +27,55 @@ public:
 #endif // DEBUG
 	}
 	friend class ForwardList;
+	friend class Iterator;
 };
 
 int Element::count = 0;
+
+class Iterator
+{
+	Element* Temp;
+public:
+	Iterator(Element* Temp = nullptr) :Temp(Temp)
+	{
+		cout << "ItConstructor:\t" << this << endl;
+	}
+	~Iterator()
+	{
+		cout << "ItDestructor:\t" << this << endl;
+	}
+
+	Iterator& operator++()
+	{
+		Temp = Temp->pNext;
+		return *this;
+	}
+
+	bool operator!=(const Iterator& other)const
+	{
+		return this->Temp != other.Temp;
+	}
+
+	int operator*()
+	{
+		return Temp->Data;
+	}
+};
 
 class ForwardList
 {
 	Element* Head;
 	unsigned int size;
 public:
+	Iterator begin()
+	{
+		return Head;
+	}
+	Iterator end()
+	{
+		return nullptr;
+	}
+	//					Constructors:
 	ForwardList()
 	{
 		Head = nullptr; //Когда список пуст, его Голова указывает на 0
