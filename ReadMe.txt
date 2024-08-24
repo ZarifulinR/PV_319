@@ -2,6 +2,11 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
+1. insert()/erase();
+2. Создать COMMIT!!!;
+3. Оптимизировать общий случай добавления элемента до одного выражения;
+
+DONE:
 В отдельном проекте реализовать двусвязный список;
 
 DONE:
