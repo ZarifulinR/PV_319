@@ -2,6 +2,9 @@
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIMoZmXHC4xATi6sucdKobIg
 
 TODO:
+Добить итераторы;
+
+DONE:
 1. Для двусвязного списка перегрузить оператор +;
 
 DONE:
