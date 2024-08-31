@@ -125,6 +125,30 @@ public:
 		}
 	};
 
+	class Iterator :public ConstIterator
+	{
+	public:
+		Iterator(Element* Temp = nullptr) :ConstIterator(Temp) {}
+		~Iterator() {}
+
+		int& operator*()
+		{
+			return Temp->Data;
+		}
+	};
+	class ReverseIterator :public ConstReverseIterator
+	{
+	public:
+		ReverseIterator(Element* Temp = nullptr) :ConstReverseIterator(Temp) {}
+		~ReverseIterator() {}
+
+		int& operator*()
+		{
+			return Temp->Data;
+		}
+	};
+
+
 	ConstIterator begin()const
 	{
 		return Head;
@@ -133,15 +157,33 @@ public:
 	{
 		return nullptr;
 	}
-
-	ConstReverseIterator rbegin()
+	Iterator begin()
 	{
-		return Tail;
+		return Head;
 	}
-	ConstReverseIterator rend()
+	Iterator end()
 	{
 		return nullptr;
 	}
+
+
+	ConstReverseIterator rbegin()const
+	{
+		return Tail;
+	}
+	ConstReverseIterator rend()const
+	{
+		return nullptr;
+	}
+	ReverseIterator rbegin()
+	{
+		return Tail;
+	}
+	ReverseIterator rend()
+	{
+		return nullptr;
+	}
+
 	//				Constructors:
 	List()
 	{
@@ -267,6 +309,12 @@ public:
 		cout << delimiter << endl;
 		cout << "Head:\t" << Head << endl;
 
+		//Выражение 'Start' выполняется 1 раз - перед первой итерацией;
+		//'Stop' - условие завершения или продолжения цикла. 
+		//Выражение 'Stop' выполняется ПЕРЕД КАЖДОЙ ИТЕРАЦИЕЙ;
+		//'Step' - шаг цикла, здесь мы переходим на следующий элемент.
+		//Выражение 'Step' выполняется после каждой итерации
+//		for (		Start;		   Stop;		Step	   )
 		for (Element* Temp = Head; Temp; Temp = Temp->pNext)
 			cout
 			<< Temp->pPrev << tab
@@ -305,6 +353,11 @@ List operator+(const List& left, const List& right)
 		//*it *= 10;
 	}
 	return buffer;
+}
+void Grow(List& list)
+{
+	for (List::Iterator it = list.begin(); it != list.end(); ++it)
+		*it *= 10;
 }
 
 //#define BASE_CHECK
@@ -356,5 +409,7 @@ void main()
 	list3.reverse_print();*/
 	for (int i : list1)cout << i << tab; cout << endl;
 	for (int i : list2)cout << i << tab; cout << endl;
+	for (int i : list3)cout << i << tab; cout << endl;
+	Grow(list3);
 	for (int i : list3)cout << i << tab; cout << endl;
 }
