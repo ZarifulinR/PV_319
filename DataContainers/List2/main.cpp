@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -30,11 +31,15 @@ template<typename T>class List
 		Element(T Data, Element* pNext = nullptr, Element* pPrev = nullptr)
 			:Data(Data), pNext(pNext), pPrev(pPrev)
 		{
+#ifdef DEBUG
 			cout << "EConstructor:\t" << this << endl;
+#endif // DEBUG
 		}
 		~Element()
 		{
+#ifdef DEBUG
 			cout << "EDestructor:\t" << this << endl;
+#endif // DEBUG
 		}
 		friend class List;
 	}*Head, *Tail;
@@ -69,11 +74,15 @@ public:
 	public:
 		ConstIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp)
 		{
+#ifdef DEBUG
 			cout << "ItConstructor:\t" << this << endl;
+#endif // DEBUG
 		}
 		~ConstIterator()
 		{
+#ifdef DEBUG
 			cout << "ItDestructor:\t" << this << endl;
+#endif // DEBUG
 		}
 
 		ConstIterator& operator++()	//Prefix increment
@@ -104,11 +113,15 @@ public:
 	public:
 		ConstReverseIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp)
 		{
+#ifdef DEBUG
 			cout << "RItConstructor:\t" << this << endl;
+#endif // DEBUG
 		}
 		~ConstReverseIterator()
 		{
+#ifdef DEBUG
 			cout << "RItDestructor:\t" << this << endl;
+#endif // DEBUG
 		}
 
 		//					Incremento/Decremento:
@@ -423,4 +436,11 @@ void main()
 	for (int i : list3)cout << i << tab; cout << endl;
 	Grow(list3);
 	for (int i : list3)cout << i << tab; cout << endl;
+
+	//https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Range%2Dbased%20for%20loop,-The%20for%2Dloop
+	List<double> d_list = { 2.7, 3.14, 5.4, 8.3 };
+	for (double i : d_list)cout << i << tab; cout << endl;
+
+	List<std::string> s_list = { "Хорошо", "живет", "на", "Свете", "Ноут", "Бук" };
+	for (std::string i : s_list)cout << i << tab; cout << endl;
 }
