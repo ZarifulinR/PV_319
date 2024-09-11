@@ -29,6 +29,7 @@ public:
 	friend class ForwardList;
 	friend class Iterator;
 	friend class Stack;
+	friend class vector;
 };
 
 int Element::count = 0;
@@ -301,6 +302,19 @@ public:
 		cout << "Size: " << size() << endl;
 		for (int i : ForwardList(*this))cout << i << tab; cout << endl;
 		cout << "\n-------------------------------\n";
+	}
+	
+};
+class vector : ForwardList
+{
+public:
+	const int& begin(int data)const
+	{
+		return Head->Data;
+	}
+	int push(int data, int index)
+	{
+
 	}
 };
 void Print(int arr[])
